@@ -1,0 +1,119 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f2f4f7;
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+   max-width: 1200px;   /* ← šířka pro desktop */
+        margin: 0 auto;
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+	position: relative;
+    }
+
+h1 {
+  text-align: center;
+}
+
+select, input, button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+button {
+  background: #2b7cff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #1f5fd1;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+li {
+  display: flex;
+  flex-direction: column;
+  background: #f7f7f7;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.task-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.done {
+  text-decoration: line-through;
+  color: gray;
+}
+
+/* Červeně zabarví úkoly po deadlinu */
+.overdue {
+  border-left: 5px solid red;
+  background: #ffecec;
+}
+
+	.logo {
+    display: block;
+    margin: 15px auto 10px auto; /* ← TADY */
+    width: 50%;
+}
+
+.task-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.task-actions button {
+  flex: 1;
+  padding: 6px;
+  font-size: 12px;
+}
+
+.delete {
+  background: #e74c3c;
+}
+
+.delete:hover {
+  background: #c0392b;
+}
+
+.edit {
+  background: #f1c40f;
+  color: black;
+}
+
+.edit:hover {
+  background: #d4ac0d;
+}
+
+#weekList li {
+  background: #eef4ff;
+  border-left: 5px solid #2b7cff;
+}
+
+.edit-box {
+  display: none;
+  margin-top: 10px;
+}
+
+.edit-box input {
+  margin-bottom: 6px;
+}
