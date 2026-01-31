@@ -1,3 +1,20 @@
+
+
+
+import { db } from "./firebase.js";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  query,
+  where,
+  updateDoc,
+  deleteDoc,
+  doc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+document.addEventListener("DOMContentLoaded", () => {
+
 const months = [
   "Leden","Únor","Březen","Duben","Květen","Červen",
   "Červenec","Srpen","Září","Říjen","Listopad","Prosinec"
@@ -27,6 +44,21 @@ months.forEach(m => {
 function save() {
   localStorage.setItem("harmonogram", JSON.stringify(data));
 }
+
+async function loadTasksFromBackend() {
+  // vyprázdníme lokální data
+  months.forEach(m => data[m] = []);
+
+  const snapshot = await getDocs(collection(db, "tasks"));
+
+  snapshot.forEach(docSnap => {
+    const task = { id: docSnap.id, ...docSnap.data() };
+    data[task.month].push(task);
+  });
+
+  render();
+}
+
 
 function renderWeek() {
   weekList.innerHTML = "";
@@ -190,26 +222,46 @@ renderWeek();
 
 
 // přidání úkolu
-addBtn.onclick = () => {
+addBtn.onclick = async (e) => {
+  console.log("KLIK NA TLAČÍTKO");
+
+    
   if (!taskText.value || !taskDate.value) {
     alert("Úkol musí mít název a datum.");
     return;
   }
 
-  data[monthSelect.value].push({
+  await addDoc(collection(db, "tasks"), {
     text: taskText.value,
     note: taskNote.value,
     plannedDate: taskDate.value,
     done: false,
-    completedAt: null
+    completedAt: null,
+    month: monthSelect.value,
+    createdAt: serverTimestamp()
   });
 
   taskText.value = "";
   taskNote.value = "";
   taskDate.value = "";
-  save();
-  render();
+
+  loadTasksFromBackend();
 };
 
+
 monthSelect.onchange = render;
-render();
+loadTasksFromBackend();
+
+(async () => {
+  try {
+    await addDoc(collection(db, "debug"), {
+      test: "funguje zapis",
+      createdAt: serverTimestamp()
+    });
+    console.log("DEBUG: zapsáno do Firestore");
+  } catch (e) {
+    console.error("DEBUG CHYBA:", e);
+  }
+})();
+
+});
