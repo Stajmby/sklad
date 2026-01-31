@@ -234,15 +234,20 @@ addBtn.onclick = async () => {
     return;
   }
 
-  await addDoc(collection(db, "tasks"), {
-    text: taskText.value,
-    note: taskNote.value,
-    plannedDate: taskDate.value,
-    done: false,
-    completedAt: null,
-    month: monthSelect.value,
-    createdAt: serverTimestamp()
-  });
+const date = new Date(taskDate.value);
+const monthName = months[date.getMonth()];
+
+await addDoc(collection(db, "tasks"), {
+  text: taskText.value,
+  note: taskNote.value,
+  plannedDate: taskDate.value,
+  done: false,
+  completedAt: null,
+  month: monthName,
+  createdAt: serverTimestamp()
+});
+
+
 
   taskText.value = "";
   taskNote.value = "";
