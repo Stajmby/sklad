@@ -49,10 +49,18 @@ async function loadTasksFromBackend() {
 
   const snapshot = await getDocs(collection(db, "tasks"));
 
-  snapshot.forEach(docSnap => {
-    const task = { id: docSnap.id, ...docSnap.data() };
-    data[task.month].push(task);
-  });
+snapshot.forEach(docSnap => {
+  const task = { id: docSnap.id, ...docSnap.data() };
+
+  // ⬇️ OCHRANA PROTI ROZBITÝM DATŮM
+  if (!task.month || !data[task.month]) {
+    console.warn("Úkol bez platného měsíce:", task);
+    return;
+  }
+
+  data[task.month].push(task);
+});
+
 
   render();
 }
