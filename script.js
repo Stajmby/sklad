@@ -1,6 +1,4 @@
 
-
-
 import { db } from "./firebase.js";
 import {
   collection,
@@ -13,7 +11,7 @@ import {
   doc,
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-document.addEventListener("DOMContentLoaded", () => {
+
 
 const months = [
   "Leden","Únor","Březen","Duben","Květen","Červen",
@@ -222,10 +220,7 @@ renderWeek();
 
 
 // přidání úkolu
-addBtn.onclick = async (e) => {
-  console.log("KLIK NA TLAČÍTKO");
-
-    
+addBtn.onclick = async () => {
   if (!taskText.value || !taskDate.value) {
     alert("Úkol musí mít název a datum.");
     return;
@@ -249,19 +244,6 @@ addBtn.onclick = async (e) => {
 };
 
 
+
 monthSelect.onchange = render;
 loadTasksFromBackend();
-
-(async () => {
-  try {
-    await addDoc(collection(db, "debug"), {
-      test: "funguje zapis",
-      createdAt: serverTimestamp()
-    });
-    console.log("DEBUG: zapsáno do Firestore");
-  } catch (e) {
-    console.error("DEBUG CHYBA:", e);
-  }
-})();
-
-});

@@ -2,12 +2,42 @@
 <html lang="cs">
 <head>
   <meta charset="UTF-8">
-  <title>TEST</title>
+  <title>Harmonogram práce</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 </head>
 <body>
 
-<button id="addBtn" type="button">TEST ULOŽENÍ</button>
+<div class="app">
+	<img src="logo-ploty-martas.png" alt="Logo nenalezeno" class="logo">
+  <h1>Harmonogram úkolů - Marťas a tým</h1>
+    <h2>Úkoly s termínem do 7 dnů</h2>
+    <ul id="weekList"></ul>
+    <hr>
 
-<script type="module" src="test.js"></script>
+  <!-- výběr měsíce -->
+  <select id="monthSelect"></select>
+
+  <!-- přidání úkolu -->
+  <div class="add-task">
+    <input type="text" id="taskText" placeholder="Název úkolu">
+    <input type="text" id="taskNote" placeholder="Poznámka (nepovinné)">
+    <input type="date" id="taskDate" required>
+
+<button id="addBtn" type="button">Přidat úkol</button>
+  </div>
+
+  <!-- seznam úkolů -->
+  <ul id="taskList"></ul>
+
+  <button id="exportBtn">Export historie</button>
+
+</div>
+
+<script type="module" src="firebase.js"></script>
+<script type="module" src="script.js"></script>
+
+</script>
 </body>
 </html>
